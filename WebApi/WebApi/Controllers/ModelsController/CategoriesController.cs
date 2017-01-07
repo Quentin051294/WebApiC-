@@ -9,20 +9,23 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Models;
+using WebApi.Models;
 
 namespace WebApi.Controllers.ModelsController
 {
     public class CategoriesController : ApiController
     {
-        private JavaContext db = new JavaContext();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/Categories
+        [Authorize]
         public IQueryable<Category> GetCategories()
         {
             return db.Categories;
         }
 
         // GET: api/Categories/5
+        [Authorize]
         [ResponseType(typeof(Category))]
         public IHttpActionResult GetCategory(int id)
         {
@@ -36,6 +39,7 @@ namespace WebApi.Controllers.ModelsController
         }
 
         // PUT: api/Categories/5
+        [Authorize]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutCategory(int id, Category category)
         {
@@ -71,6 +75,7 @@ namespace WebApi.Controllers.ModelsController
         }
 
         // POST: api/Categories
+        [Authorize]
         [ResponseType(typeof(Category))]
         public IHttpActionResult PostCategory(Category category)
         {
@@ -80,7 +85,7 @@ namespace WebApi.Controllers.ModelsController
             }
 
 
-            if(category.Promotion <= 0 || category.Promotion >= 100)
+            if (category.Promotion <= 0 || category.Promotion >= 100)
             {
                 return BadRequest("La promotion n'est pas valide");
             }
@@ -98,6 +103,7 @@ namespace WebApi.Controllers.ModelsController
         }
 
         // DELETE: api/Categories/5
+        [Authorize]
         [ResponseType(typeof(Category))]
         public IHttpActionResult DeleteCategory(int id)
         {
@@ -135,3 +141,4 @@ namespace WebApi.Controllers.ModelsController
         }
     }
 }
+

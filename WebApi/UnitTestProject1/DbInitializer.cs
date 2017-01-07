@@ -1,17 +1,37 @@
-﻿using Models;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebApi.Models;
 
 namespace UnitTestProject1
 {
-    class DbInitializer : DropCreateDatabaseAlways<JavaContext>
+    class DbInitializer : DropCreateDatabaseAlways<ApplicationDbContext>
     {
-        protected override void Seed(JavaContext context)
+        protected override void Seed(ApplicationDbContext context)
         {
+            // This method will be called after migrating to the latest version.
+
+
+            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+
+            var user = new ApplicationUser()
+            {
+                UserName = "SuperPowerUser",
+                Email = "taiseer.joudeh@mymail.com",
+                EmailConfirmed = true,
+                FirstName = "Taiseer",
+                LastName = "Joudeh",
+                Level = 1,
+                JoinDate = DateTime.Now.AddYears(-3)
+            };
+
+            manager.Create(user, "MySuperP@ssword!");
             Customer cust = new Customer()
             {
                 CustomerID = 1,

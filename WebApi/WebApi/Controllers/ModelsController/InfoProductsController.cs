@@ -9,20 +9,23 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Models;
+using WebApi.Models;
 
 namespace WebApi.Controllers.ModelsController
 {
     public class InfoProductsController : ApiController
     {
-        private JavaContext db = new JavaContext();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/InfoProducts
+        [Authorize]
         public IQueryable<InfoProduct> GetInfoProducts()
         {
             return db.InfoProducts.Include(b => b.Product).Include(b => b.Language);
         }
 
         // GET: api/InfoProducts/5
+        [Authorize]
         [ResponseType(typeof(InfoProduct))]
         public IHttpActionResult GetInfoProduct(int id)
         {
@@ -36,6 +39,7 @@ namespace WebApi.Controllers.ModelsController
         }
 
         // PUT: api/InfoProducts/5
+        [Authorize]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutInfoProduct(int id, InfoProduct infoProduct)
         {
@@ -71,6 +75,7 @@ namespace WebApi.Controllers.ModelsController
         }
 
         // POST: api/InfoProducts
+        [Authorize]
         [ResponseType(typeof(InfoProduct))]
         public IHttpActionResult PostInfoProduct(InfoProduct infoProduct)
         {
@@ -93,6 +98,7 @@ namespace WebApi.Controllers.ModelsController
         }
 
         // DELETE: api/InfoProducts/5
+        [Authorize]
         [ResponseType(typeof(InfoProduct))]
         public IHttpActionResult DeleteInfoProduct(int id)
         {

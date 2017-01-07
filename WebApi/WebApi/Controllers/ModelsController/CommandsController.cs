@@ -9,20 +9,23 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Models;
+using WebApi.Models;
 
 namespace WebApi.Controllers.ModelsController
 {
     public class CommandsController : ApiController
     {
-        private JavaContext db = new JavaContext();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/Commands
+        [Authorize]
         public IQueryable<Command> GetCommands()
         {
             return db.Commands.Include(b => b.Customer);
         }
 
         // GET: api/Commands/5
+        [Authorize]
         [ResponseType(typeof(Command))]
         public IHttpActionResult GetCommand(int id)
         {
@@ -30,12 +33,13 @@ namespace WebApi.Controllers.ModelsController
             if (command == null)
             {
                 return NotFound();
-            } 
+            }
 
             return Ok(command);
         }
 
         // PUT: api/Commands/5
+        [Authorize]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutCommand(int id, Command command)
         {
@@ -71,6 +75,7 @@ namespace WebApi.Controllers.ModelsController
         }
 
         // POST: api/Commands
+        [Authorize]
         [ResponseType(typeof(Command))]
         public IHttpActionResult PostCommand(Command command)
         {
@@ -93,6 +98,7 @@ namespace WebApi.Controllers.ModelsController
         }
 
         // DELETE: api/Commands/5
+        [Authorize]
         [ResponseType(typeof(Command))]
         public IHttpActionResult DeleteCommand(int id)
         {

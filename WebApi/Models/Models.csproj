@@ -55,7 +55,6 @@
     <Compile Include="Customer.cs" />
     <Compile Include="InfoCategory.cs" />
     <Compile Include="InfoProduct.cs" />
-    <Compile Include="JavaContext.cs" />
     <Compile Include="Language.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

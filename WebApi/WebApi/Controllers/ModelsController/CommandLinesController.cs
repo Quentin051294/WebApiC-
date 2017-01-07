@@ -9,20 +9,24 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Models;
+using WebApi.Models;
 
 namespace WebApi.Controllers.ModelsController
 {
     public class CommandLinesController : ApiController
     {
-        private JavaContext db = new JavaContext();
+        private ApplicationDbContext db = new ApplicationDbContext();
+
 
         // GET: api/CommandLines
+        [Authorize]
         public IQueryable<CommandLine> GetCommandLines()
         {
             return db.CommandLines.Include(b => b.Command).Include(b => b.Product);
         }
 
         // GET: api/CommandLines/5
+        [Authorize]
         [ResponseType(typeof(CommandLine))]
         public IHttpActionResult GetCommandLine(int id)
         {
@@ -36,6 +40,7 @@ namespace WebApi.Controllers.ModelsController
         }
 
         // PUT: api/CommandLines/5
+        [Authorize]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutCommandLine(int id, CommandLine commandLine)
         {
@@ -71,6 +76,7 @@ namespace WebApi.Controllers.ModelsController
         }
 
         // POST: api/CommandLines
+        [Authorize]
         [ResponseType(typeof(CommandLine))]
         public IHttpActionResult PostCommandLine(CommandLine commandLine)
         {
@@ -79,12 +85,12 @@ namespace WebApi.Controllers.ModelsController
                 return BadRequest(ModelState);
             }
 
-            if(commandLine.Quantity <= 0)
+            if (commandLine.Quantity <= 0)
             {
                 return BadRequest("La quantité doit être plus grande que 0");
             }
 
-            if(commandLine.RealPrice <0)
+            if (commandLine.RealPrice < 0)
             {
                 return BadRequest("Le prix doit être plus grand que 0");
             }
@@ -102,6 +108,7 @@ namespace WebApi.Controllers.ModelsController
         }
 
         // DELETE: api/CommandLines/5
+        [Authorize]
         [ResponseType(typeof(CommandLine))]
         public IHttpActionResult DeleteCommandLine(int id)
         {

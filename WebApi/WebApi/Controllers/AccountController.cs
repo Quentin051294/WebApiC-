@@ -52,6 +52,7 @@ namespace WebApi.Controllers
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
         // GET api/Account/UserInfo
+        [Authorize]
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
         [Route("UserInfo")]
         public UserInfoViewModel GetUserInfo()
@@ -67,6 +68,7 @@ namespace WebApi.Controllers
         }
 
         // POST api/Account/Logout
+        [Authorize]
         [Route("Logout")]
         public IHttpActionResult Logout()
         {
@@ -75,6 +77,7 @@ namespace WebApi.Controllers
         }
 
         // GET api/Account/ManageInfo?returnUrl=%2F&generateState=true
+        [Authorize]
         [Route("ManageInfo")]
         public async Task<ManageInfoViewModel> GetManageInfo(string returnUrl, bool generateState = false)
         {
@@ -115,6 +118,7 @@ namespace WebApi.Controllers
         }
 
         // POST api/Account/ChangePassword
+        [Authorize]
         [Route("ChangePassword")]
         public async Task<IHttpActionResult> ChangePassword(ChangePasswordBindingModel model)
         {
@@ -135,6 +139,7 @@ namespace WebApi.Controllers
         }
 
         // POST api/Account/SetPassword
+        [Authorize]
         [Route("SetPassword")]
         public async Task<IHttpActionResult> SetPassword(SetPasswordBindingModel model)
         {
@@ -154,6 +159,7 @@ namespace WebApi.Controllers
         }
 
         // POST api/Account/AddExternalLogin
+        [Authorize]
         [Route("AddExternalLogin")]
         public async Task<IHttpActionResult> AddExternalLogin(AddExternalLoginBindingModel model)
         {
@@ -192,6 +198,7 @@ namespace WebApi.Controllers
         }
 
         // POST api/Account/RemoveLogin
+        [Authorize]
         [Route("RemoveLogin")]
         public async Task<IHttpActionResult> RemoveLogin(RemoveLoginBindingModel model)
         {
@@ -261,11 +268,7 @@ namespace WebApi.Controllers
                 
                  ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
                     OAuthDefaults.AuthenticationType);
-                ClaimsIdentity cookieIdentity = await user.GenerateUserIdentityAsync(UserManager,
-                    CookieAuthenticationDefaults.AuthenticationType);
 
-                AuthenticationProperties properties = ApplicationOAuthProvider.CreateProperties(user.UserName);
-                Authentication.SignIn(properties, oAuthIdentity, cookieIdentity);
             }
             else
             {

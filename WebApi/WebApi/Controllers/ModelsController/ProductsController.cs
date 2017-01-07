@@ -9,20 +9,23 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Models;
+using WebApi.Models;
 
 namespace WebApi.Controllers.ModelsController
 {
     public class ProductsController : ApiController
     {
-        private JavaContext db = new JavaContext();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/Products
+        [Authorize]
         public IQueryable<Product> GetProducts()
         {
             return db.Products.Include(b => b.Category);
         }
 
         // GET: api/Products/5
+        [Authorize]
         [ResponseType(typeof(Product))]
         public IHttpActionResult GetProduct(int id)
         {
@@ -36,6 +39,7 @@ namespace WebApi.Controllers.ModelsController
         }
 
         // PUT: api/Products/5
+        [Authorize]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutProduct(int id, Product product)
         {
@@ -71,6 +75,7 @@ namespace WebApi.Controllers.ModelsController
         }
 
         // POST: api/Products
+        [Authorize]
         [ResponseType(typeof(Product))]
         public IHttpActionResult PostProduct(Product product)
         {
@@ -79,7 +84,7 @@ namespace WebApi.Controllers.ModelsController
                 return BadRequest(ModelState);
             }
 
-            if(product.UnitPrice < 0)
+            if (product.UnitPrice < 0)
             {
                 return BadRequest("Le prix doit être plus grand que 0");
             }
@@ -97,6 +102,7 @@ namespace WebApi.Controllers.ModelsController
         }
 
         // DELETE: api/Products/5
+        [Authorize]
         [ResponseType(typeof(Product))]
         public IHttpActionResult DeleteProduct(int id)
         {

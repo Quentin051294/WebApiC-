@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Data.Entity;
 using Models;
 using System.Linq;
+using WebApi.Models;
 
 namespace UnitTestProject1
 {
@@ -13,7 +14,7 @@ namespace UnitTestProject1
         public void Setup()
         {
             Database.SetInitializer(new DbInitializer());
-            using (JavaContext context = GetContext())
+            using (ApplicationDbContext context = GetContext())
             {
                 context.Database.Initialize(true);
             }
@@ -28,9 +29,9 @@ namespace UnitTestProject1
             }
         }
 
-        public JavaContext GetContext()
+        public ApplicationDbContext GetContext()
         {
-            return new JavaContext();
+            return new ApplicationDbContext();
         }
     }
 }

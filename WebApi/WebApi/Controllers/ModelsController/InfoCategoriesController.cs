@@ -9,20 +9,23 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Models;
+using WebApi.Models;
 
 namespace WebApi.Controllers.ModelsController
 {
     public class InfoCategoriesController : ApiController
     {
-        private JavaContext db = new JavaContext();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/InfoCategories
+        [Authorize]
         public IQueryable<InfoCategory> GetInfoCategories()
         {
             return db.InfoCategories.Include(b => b.Category).Include(b => b.Language);
         }
 
         // GET: api/InfoCategories/5
+        [Authorize]
         [ResponseType(typeof(InfoCategory))]
         public IHttpActionResult GetInfoCategory(int id)
         {
@@ -36,6 +39,7 @@ namespace WebApi.Controllers.ModelsController
         }
 
         // PUT: api/InfoCategories/5
+        [Authorize]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutInfoCategory(int id, InfoCategory infoCategory)
         {
@@ -71,6 +75,7 @@ namespace WebApi.Controllers.ModelsController
         }
 
         // POST: api/InfoCategories
+        [Authorize]
         [ResponseType(typeof(InfoCategory))]
         public IHttpActionResult PostInfoCategory(InfoCategory infoCategory)
         {
@@ -93,6 +98,7 @@ namespace WebApi.Controllers.ModelsController
         }
 
         // DELETE: api/InfoCategories/5
+        [Authorize]
         [ResponseType(typeof(InfoCategory))]
         public IHttpActionResult DeleteInfoCategory(int id)
         {

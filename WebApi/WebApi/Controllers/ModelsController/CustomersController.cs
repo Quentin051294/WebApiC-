@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Models;
+using WebApi.Models;
 using System.Net.Mail;
 using System.Text.RegularExpressions;
 
@@ -16,15 +17,17 @@ namespace WebApi.Controllers.ModelsController
 {
     public class CustomersController : ApiController
     {
-        private JavaContext db = new JavaContext();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/Customers
+        [Authorize]
         public IQueryable<Customer> GetCustomers()
         {
             return db.Customers;
         }
 
         // GET: api/Customers/5
+        [Authorize]
         [ResponseType(typeof(Customer))]
         public IHttpActionResult GetCustomer(int id)
         {
@@ -38,6 +41,7 @@ namespace WebApi.Controllers.ModelsController
         }
 
         // PUT: api/Customers/5
+        [Authorize]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutCustomer(int id, Customer customer)
         {
@@ -110,6 +114,7 @@ namespace WebApi.Controllers.ModelsController
         }
 
         // POST: api/Customers
+        [Authorize]
         [ResponseType(typeof(Customer))]
         public IHttpActionResult PostCustomer(Customer customer)
         {
@@ -169,6 +174,7 @@ namespace WebApi.Controllers.ModelsController
         }
 
         // DELETE: api/Customers/5
+        [Authorize]
         [ResponseType(typeof(Customer))]
         public IHttpActionResult DeleteCustomer(int id)
         {

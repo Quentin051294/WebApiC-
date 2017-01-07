@@ -9,20 +9,23 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Models;
+using WebApi.Models;
 
 namespace WebApi.Controllers.ModelsController
 {
     public class LanguagesController : ApiController
     {
-        private JavaContext db = new JavaContext();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/Languages
+        [Authorize]
         public IQueryable<Language> GetLanguages()
         {
             return db.Languages;
         }
 
         // GET: api/Languages/5
+        [Authorize]
         [ResponseType(typeof(Language))]
         public IHttpActionResult GetLanguage(int id)
         {
@@ -36,6 +39,7 @@ namespace WebApi.Controllers.ModelsController
         }
 
         // PUT: api/Languages/5
+        [Authorize]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutLanguage(int id, Language language)
         {
@@ -71,6 +75,7 @@ namespace WebApi.Controllers.ModelsController
         }
 
         // POST: api/Languages
+        [Authorize]
         [ResponseType(typeof(Language))]
         public IHttpActionResult PostLanguage(Language language)
         {
@@ -93,6 +98,7 @@ namespace WebApi.Controllers.ModelsController
         }
 
         // DELETE: api/Languages/5
+        [Authorize]
         [ResponseType(typeof(Language))]
         public IHttpActionResult DeleteLanguage(int id)
         {
