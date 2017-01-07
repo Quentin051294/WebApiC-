@@ -19,7 +19,7 @@ namespace WebApi.Controllers.ModelsController
         // GET: api/InfoCategories
         public IQueryable<InfoCategory> GetInfoCategories()
         {
-            return db.InfoCategories;
+            return db.InfoCategories.Include(b => b.Category).Include(b => b.Language);
         }
 
         // GET: api/InfoCategories/5

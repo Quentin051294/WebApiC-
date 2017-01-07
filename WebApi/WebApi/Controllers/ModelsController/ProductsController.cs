@@ -19,7 +19,7 @@ namespace WebApi.Controllers.ModelsController
         // GET: api/Products
         public IQueryable<Product> GetProducts()
         {
-            return db.Products;
+            return db.Products.Include(b => b.Category);
         }
 
         // GET: api/Products/5
